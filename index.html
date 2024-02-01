@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="vue.global.js"></script>
+    <link rel="stylesheet" href="bootstrap-5.3.2-dist/css/bootstrap.min.css">
+    <script src="bootstrap-5.3.2-dist/js/bootstrap.min.js"></script>
+    <style>
+        #div_name{
+            box-sizing: border-box;
+            
+            padding: 4px 2px,2px,2px;
+            border-left: 20px;
+            padding-right: 1px;
+        }
+        #submit {
+            text-align: center;
+            margin-top: 20px; 
+        }
+        .container{
+            background-color: #e0ebeb;
+        }
+    
+    </style>
+</head>
+<body>
+    <br>
+    <div>
+
+        <h1 style="text-align:center; "><span style="background-color: #d6e0f5; border: 2px solid black; border-radius:5px;">AADHAR REGISTRATION FORM</span></h1>
+    </div>
+    <br>
+    <div id="app" >
+        <div class="container">
+            <div class="p-2 row" style="border: 2px solid black;">
+                <div class="p-3 col">
+                    <label><b>Enter Your First Name: </b></label>
+                    &emsp;<input type="text" Placeholder="Enter your First name" v-model="data['u_fname']" v-on:keyup="validate_fname" name="xx" v-bind:style="bord"/>
+                </div>
+                <div class="p-3 col">
+                    <label><b>Enter Your Middle Name: </b></label>
+                    &emsp;<input type="text" Placeholder="Enter your Middle name" v-model="data['u_mname']" v-on:keyup="validate_mname" name="xx" />
+                 </div>
+                <div class="p-3 col">
+                    <label><b>Enter Your Last Name: </b></label>
+                    &emsp;<input type="text" Placeholder="Enter your Last name" v-model="data['u_lname']" v-on:keyup="validate_lname" name="xx" />
+                </div>
+            </div> 
+        </div>
+        
+        <div class="container">
+            <div class="p-2 row" style="border: 2px solid black; border-top: 0px;">
+                <div class="p-3 col">
+                    <label><b>Are You:  </b></label>
+                    &emsp;&emsp;&emsp;<input type="radio" name="y" v-model="r" v-on:change="Residency"/>Resident
+
+                    &emsp;&emsp;&emsp;<input type="radio" name="y" v-model="nr" v-on:change="nResidency">Non Resident
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="p-2 row" style="border: 2px solid black; border-top: 0px;">
+                <div class="p-3 col">
+                    <label><b>Please upload your passport size image here: </b></label>
+                    &emsp;&emsp;<input type="file" id="passportImage" accept="image/*" v-on:change="handleImageUpload" name="passportImage" required>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="p-2 row" style="border: 2px solid black; border-top: 0px;">
+                <div class="p-3 col">
+                    <label><b>Gender: </b></label>
+                    <div>
+                    <label><input type="radio" name="gender" v-model="f">  Female</label>
+                    <br>
+                    <input type="radio" v-model="m" name="gender">  Male
+                    <br>
+                    <input type="radio" v-model="o" name="gender">  Other
+                   </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="p-2 row" style="border: 2px solid black; border-top:0px;">
+                <div class="p-3 col">
+                    <label><b>Age : </b></label>
+                    &emsp;<input type="number" max="90" min="1" placeholder="Enter Your Age">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="p-2 row" style="border: 2px solid black;border-top:0px;">
+                <div class="p-3 col">
+                    <label><b>Enter Your Date of Birth</b></label>
+                    &emsp;<input type="Date" v-model="u_date_of_birth" v-on:change="validate_date_of_birth"/>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="p-2 row" style="border: 2px solid black;border-top:0px;">
+                <div class="p-3 col">
+                    <label><b>Enter Mobile Number</b></label>
+                    &emsp;<input type="text" v-model="u_country_code" placeholder="Enter Country Code">
+                    &emsp;<input type="tel" v-model="u_mobile" placeholder="Enter Your 10 Digit Phone Number" v-on:keyup="validate_mobile">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="p-2 row" style="border: 2px solid black;border-top:0px;">
+                <div class="p-3 col">
+                    <h4>Enter Address:</h4>
+                    <div class="p-2 row" style="border: 2px solid black; background-color: #ccfff2;">
+                        <div class="p-2 col">
+                            <label><b>House / Apt Number: </b></label>
+                            &emsp;<input type="text" v-model="house_number" placeholder="enter your house number"/>
+                        </div>
+                        <div class="p-2 col">
+                            <label><b>Street Name : </b></label>
+                            &emsp;<input type="text" v-model="Street_name" placeholder="enter your street name"/>
+                        </div>
+                    </div>
+                    <div class="p-2 row" style="border: 2px solid black;border-top:0px; background-color: #ccfff2;">
+                        <div class="p-2 col">
+                            <label><b>Landmark : </b></label>
+                            &emsp;<input type="text" v-model="landmark" placeholder="enter your land mark"/>
+                        </div>
+                        <div class="p-2 col">
+                            <label><b>Area/Locality : </b></label>
+                            &emsp;<input type="text" v-model="area_locality" placeholder="enter your Area or Locality"/>
+                        </div>
+                    </div>
+                    <div class="p-2 row" style="border: 2px solid black;border-top:0px; background-color: #ccfff2;">
+                        <div class="p-2 col">
+                            <label><b>Select State: </b></label>
+                            <select v-model="selected_state">
+                                &emsp;<option >choose your state</option>
+                                <option  v-for="y,i in states">{{ i }}</option>
+                            </select>
+                        </div>
+                        <div class="p-2 col">
+                            <label><b>Post Office : </b></label>
+                            &emsp;<input type="text" v-model="postoffice" placeholder="enter neaby postoffice name"/>
+                        </div>    
+                    </div>
+                    <div class="p-2 row" style="border: 2px solid black;border-top:0px; background-color: #ccfff2;">
+                        <div class="p-2 col">
+                            <label><b>District : </b></label>
+                            &emsp;<input type="text" v-model="District" placeholder="Enter Your District Name"/>
+                        </div>
+                        <div class="p-2 col">
+                            <label><b>Sub District: </b></label>
+                            &emsp;<input type="text" v-model="Subdistrict" placeholder="enter sub district name"/>
+                        </div>
+                        <div class="p-2 col">
+                            <label><b>City : </b></label>
+                            <select>
+                                &emsp;<option >choose your state</option>
+                                <option  v-for="k,j in states[selected_state]">{{ k }}</option>
+                            </select>
+                            
+                            
+                        </div>    
+                    </div>
+                    <div class="p-2 row" style="border: 2px solid black;border-top:0px; background-color: #ccfff2;">
+                        <div class="p-2 col">
+                            <label><b>Email : </b></label>
+                            &emsp;<input type="text" v-model="email" placeholder="enter your email" required />
+                        </div>
+                        <div class="p-2 col">
+                            <label><b>Mobile : </b></label>
+                            &emsp;<input type="text" v-model="mobile" placeholder="enter your mobile number"/>
+                        </div>
+                        <div class="p-2 col">
+                            <label><b>Pincode : </b></label>
+                            &emsp;<input type="text" v-model="pincode" placeholder="enter pincode"/>
+                        </div>    
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="p-2 row" style="border: 2px solid black;border-top:0px;">
+                <div class="p-3 col">
+                    <h5>This is for applicants whose age is below or equals to 5 need to fill additional details of any of the person below</h5>
+                    
+                    <label>Choose one</label>
+                    
+                    &emsp;&emsp;<input type="radio" v-model="father" name="k" v-on:change="display_father_details"/> father
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<input type="radio" v-model="mather" name="k" v-on:change="display_mother_details" value="xx"/> Mother
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<input type="radio" v-model="guardian" name="k" v-on:change="display_Guardian_details"/> Guardian
+
+                    <h5>Remaining applicants can skip it</h5>
+
+                    
+                </div>
+            </div>
+        </div>
+        <div class="container" v-if="x==true">
+            <div class="p-2 row" style="border: 2px solid black;border-top:0px;">
+                <h5>Please Fill the Father Details Here</h5>
+                <div class="p-3 col-2">
+                    <label>Surname: </label>
+                    <input type="text" v-model="sname" />
+                </div>
+                <div class="p-3 col-2">
+                    <label>First Name: </label>
+                    <input type="text" v-model="fname" />
+                    
+                </div>
+                <div class="p-3 col-2">
+                    <label>Last Name: </label>
+                    <input type="text" v-model="lname" />
+                    
+                </div>
+                <div class="p-2 row" style="border: 2px solid black;border-top:0px;">
+                    <div class="p-3 col-2">
+                        <label>Mobile No: </label>
+                        <input type="tel" v-model="fmobile" />
+                    
+                    </div>
+                    <div class="p-3 col-2">
+                        <label>Aadhar Number: </label>
+                        <input type="number" v-model="faadhar" />
+                    
+                    </div>
+                    <div class="p-3 col-2">
+                        <label>Email: </label>
+                        <input type="email" v-model="femail" />
+                    
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+        <div class="container" v-if="y==true">
+            <div class="p-2 row" style="border: 2px solid black;border-top:0px;">
+                <h5>Please Fill the Mother Details Here</h5>
+                <div class="p-3 col-2">
+                    <label>Surname: </label>
+                    <input type="text" v-model="sname" />
+                </div>
+                <div class="p-3 col-2">
+                    <label>First Name: </label>
+                    <input type="text" v-model="fname" />
+                    
+                </div>
+                <div class="p-3 col-2">
+                    <label>Last Name: </label>
+                    <input type="text" v-model="lname" />
+                    
+                </div>
+                <div class="p-2 row" style="border: 2px solid black;border-top:0px;">
+                    <div class="p-3 col-2">
+                        <label>Mobile No: </label>
+                        <input type="tel" v-model="fmobile" />
+                    
+                    </div>
+                    <div class="p-3 col-2">
+                        <label>Aadhar Number: </label>
+                        <input type="number" v-model="faadhar" />
+                    
+                    </div>
+                    <div class="p-3 col-2">
+                        <label>Email: </label>
+                        <input type="email" v-model="femail" />
+                    
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+        <div class="container" v-if="z==true">
+            <div class="p-2 row" style="border: 2px solid black;border-top:0px;">
+                <h5>Please Fill the Guardian Details Here</h5>
+                <div class="p-3 col-2">
+                    <label>Surname: </label>
+                    <input type="text" v-model="sname" />
+                </div>
+                <div class="p-3 col-2">
+                    <label>First Name: </label>
+                    <input type="text" v-model="fname" />
+                    
+                </div>
+                <div class="p-3 col-2">
+                    <label>Last Name: </label>
+                    <input type="text" v-model="lname" />
+                    
+                </div>
+                <div class="p-2 row" style="border: 2px solid black;border-top:0px;">
+                    <div class="p-3 col-2">
+                        <label>Mobile No: </label>
+                        <input type="tel" v-model="fmobile" />
+                    
+                    </div>
+                    <div class="p-3 col-2">
+                        <label>Aadhar Number: </label>
+                        <input type="number" v-model="faadhar" />
+                    
+                    </div>
+                    <div class="p-3 col-2">
+                        <label>Email: </label>
+                        <input type="email" v-model="femail" />
+                    
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+        <div class="container">
+            <div class="p-2 row" style="border: 2px solid black; border-top: 0px;">
+                <div class="p-3 col">
+                    <label><b>Declaration </b></label>
+                    <br>
+                    <input type="checkbox" v-model="check" />&emsp;It is hearby declaring that details above are given by me.....
+                   
+                </div>
+            </div>
+        </div>
+        <div id="submit" v-if="submit_det">
+            <input type="submit" style="width: 150px; margin: 7px auto; align-items: center;" id="submit" v-on:click="submit_details"/>
+        </div>
+        <div id="submit" v-if="response">
+            <input type="button" style="width: 150px; margin: 7px auto; align-items: center;" id="submit" value="See Your Response" v-on:click="see_all_detals"/>
+        </div>
+        <input type="button" name="pr" @click="print_val()">
+        <div class="container" id="all_details">
+            <div class="p-2 row" style="border: 2px solid black;">
+                <p>First Name : {{ data['u_fname'] }} </p>
+                <p>Middle Name : {{ data['u_mname'] }} </p>
+                <p>Last Name : {{ u_lname }} </p>
+                <p v-if="r"> You are Resident</p>
+                <p v-else>You are not Resident</p>
+                <p>Your passport size photo is {{ file }}</p>
+                <p v-if="f">Gender: female </p>
+                <p v-if="m">Gender: male </p>
+                <p v-if="o">Gender: Other </p>
+                <p>Date of Birth: {{ u_date_of_birth }}</p>
+                <p>Country code: {{ u_country_code }} Mobile Number: {{ u_mobile }}</p>
+                <p></p>
+            </div>
+        </div>
+        <div class="container" id="all_details">
+            <div class="p-2 row" style="border: 2px solid black;">
+                <li v-for="x,i in data1">
+                    {{ i }}: {{ x }}
+
+                </li>
+            </div>
+        </div>
+        <div>
+            <li v-for="x,i in data1" >{{ i }}</li>
+        </div>
+
+
+
+    </div>
+    
+    <script>
+        const app = Vue.createApp({
+            data: function(){
+                return {
+                    data:{
+                        u_fname:"",
+                        u_mname:"",
+                        u_lname:"",
+                        passport_img: null,
+                        u_date_of_birth: null,
+                        current_date: null,
+                        u_mobile: "",
+                        father:"",
+                        mother:"",
+                        guardian:"",
+                    },
+                    x:false,
+                    y:false,
+                    z: false,
+                    submit_det: true,
+                    response: false,
+                    r: "",
+                    nr: "",
+                    file: "",
+                    f: "",
+                    m: "",
+                    o: "",
+                    data1:{first: 123},
+                    
+                    
+                    states:{ "Andaman and Nicobar Islands": ["Port Blair"],
+                            "Haryana": ["Faridabad","Gurgaon","Hisar","Rohtak","Panipat","Karnal","Sonipat"],
+                            "Tamil Nadu": ["Chennai","Coimbatore","Madurai","Tiruchirappalli","Salem","Tirunelveli"],
+                            "Madhya Pradesh": ["Indore","Bhopal","Jabalpur","Gwalior","Ujjain","Sagar"],
+                            "Jharkhand": ["Dhanbad","Ranchi","Jamshedpur","Bokaro Steel City","Deoghar"],
+                            "Mizoram": ["Aizawl","Lunglei","Saiha"],
+                            "Nagaland": ["Dimapur","Kohima","Zunheboto","Tuensang","Wokha","Mokokchung"],
+                            "Himachal Pradesh": ["Shimla","Mandi","Solan","Nahan","Sundarnagar","Palampur","Kullu"],
+                            "Tripura": ["Agartala","Udaipur","Dharmanagar","Pratapgarh","Kailasahar","Belonia","Khowai"],
+                            "Andhra Pradesh": ["Visakhapatnam","Vijayawada","Guntur","Nellore","Kurnool","Rajahmundry"],
+                            "Punjab": ["Ludhiana","Patiala","Amritsar","Jalandhar","Bathinda","Pathankot","Hoshiarpur"],
+                            "Chandigarh": ["Chandigarh"],
+                            "Assam": ["Guwahati","Silchar","Dibrugarh","Nagaon","Tinsukia","Jorhat","Bongaigaon City","Dhubri"],
+                            "Odisha": ["Bhubaneswar","Cuttack","Raurkela","Brahmapur","Sambalpur","Puri"],
+                            "Chhattisgarh": ["Raipur","Bhilai Nagar","Korba","Bilaspur","Durg","Rajnandgaon","Jagdalpur","Raigarh"],
+                            "Jammu and Kashmir": ["Srinagar","Jammu","Baramula","Anantnag","Sopore","KathUrban Agglomeration"],
+                            "Karnataka": ["Bengaluru","Hubli-Dharwad","Belagavi","Mangaluru","Davanagere","Ballari"],
+                            "Manipur": ["Imphal","Thoubal","Lilong","Mayang Imphal"],
+                            "Kerala": ["Thiruvananthapuram","Kochi","Kozhikode","Kollam","Thrissur","Palakkad"]
+                        },
+                    selected_state: "",
+                    bord:"none",
+
+
+                }
+
+                
+            },
+            methods:{
+                validate_fname: function(){
+                    if(this.u_fname.match(/^[a-zA-Z\ ]+$/i) ){
+                        this.bord= "border: 3px solid blue; border-radius: 5px; box-shadow:2px 2px 2px 2px blue;";
+                        
+                    }
+                    else{
+                        //alert("hello");
+                        this.bord= "border: 3px solid red; border-radius: 5px; box-shadow:2px 2px 2px 2px red;";
+                    }
+                },
+                validate_mname: function(){
+                    if(this.u_mname.match(/^[a-zA-Z ]+$/i)){
+                        
+                    }
+                    else{
+                        alert("Invalid name");
+                    }
+                },
+                validate_lname: function(){
+                    if(this.u_lname.match(/^[a-z ]+$/i)){
+                        
+                    }
+                    else{
+                        alert("Invalid name");
+                    }
+                },
+                handleImageUpload(event) {
+                    
+                    file = event.target.files[0];
+                    console.log(file);
+                   
+
+                    
+                    if (file && (file.type === "image/jpeg" || file.type === "image/jpg")) {
+                        this.passportImage = file;
+                    } else {
+                    
+                        alert("Please upload a valid JPEG or JPG image.");
+                        
+                        
+                    }
+                },
+                validate_date_of_birth: function(){
+                    this.current_date = new Date();
+                   
+                    this.u_date_of_birth= new Date(this.u_date_of_birth)
+                    
+                    if(this.u_date_of_birth > this.current_date){
+                        alert("Please Enter Valid Date Of Birth");
+                    }
+                    
+                    
+
+                },
+                validate_mobile: function(){
+                    if(this.u_mobile.length>10){
+                        alert("Please Enter Valid Phone Number");
+                    }
+
+                },
+                display_father_details: function(){
+                    this.x = true;
+                    this.y = false;
+                    this.z = false;
+
+                },
+                display_mother_details: function(){
+                    this.x = false;
+                    this.y = true;
+                    this.z = false;
+
+                },
+                display_Guardian_details: function(){
+                    this.x = false;
+                    this.y = false;
+                    this.z= true;
+                },
+                submit_details: function(){
+                    this.submit_det= false;
+                    this.response = true;
+                },
+                print_val(){
+                    console.log(this.data);
+                },
+                
+            },
+        });
+        app.mount("#app");
+    </script>
+</body>
+</html>
